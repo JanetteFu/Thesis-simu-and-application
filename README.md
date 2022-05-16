@@ -1,1 +1,1 @@
-# Thesis-simu-and-application
+# Code for thesis simulation and application on epidemiological data
