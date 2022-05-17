@@ -148,15 +148,10 @@ model {
   for (n in 1:N_mis) {
     real partner_mis = X_mis[n,] * beta_p[,S_mis[n]] + alpha_p;
     real active_mis = X_mis[n,] * beta_a[,S_mis[n]] + alpha_a;
-    target += log_mix(Phi_approx(partner_mis), 
-                      binomial_lpmf(1 | Phi(partner_mis)), 
-                      binomial_lpmf(0 | Phi(partner_mis));
-                      target += log_mix(Phi_approx(active_mis), 
-                                        binomial_lpmf(1 | Phi(active_mis)), 
-                                        binomial_lpmf(0 | Phi(active_mis));
-                                        hiv_mis[n] ~ bernoulli_logit(Phi_approx(partner_mis) *
-                                                                       beta_mis[S_mis[n]] + Phi_approx(active_mis) * 
-                                                                       beta_mis2[S_mis[n]] + X_mis[n,] * beta2[,S_mis[n]] + alpha2);                                 
+    target += log_mix(inv_logit(partner_mis), binomial_lpmf(1 | partner_mis), binomial_lpmf(0 | partner_mis));
+    target += log_mix(inv_logit(active_mis), binomial_lpmf(1 | active_mis), binomial_lpmf(0 | active_mis));
+    hiv_mis[n] ~ bernoulli_logit(inv_logit(partner_mis) * beta_mis[S_mis[n]] + inv_logit(active_mis) * 
+         beta_mis2[S_mis[n]] + X_mis[n,] * beta2[,S_mis[n]] + alpha2);                                 
   }
 }
 "
