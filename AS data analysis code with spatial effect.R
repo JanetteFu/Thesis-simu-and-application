@@ -13,7 +13,7 @@ AS_spatial <- "data {
 }
 
 transformed data {
-  real m0 = 10;           
+  real tau0 = 0.001;    
   real slab_scale = 4;    
   real slab_scale2 = square(slab_scale);
   real slab_df = 20;     
@@ -33,7 +33,6 @@ parameters {
 
 transformed parameters {
   vector[M] beta;
-  real tau0 = (m0 / (M - m0)) * (2 / sqrt(1.0 * N));
   real tau = tau0 * tau_tilde;
   
   real c2 = slab_scale2 * c2_tilde;

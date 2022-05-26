@@ -16,7 +16,7 @@ hiv_hierach <- "data {
 }
 
 transformed data {
-  real m0 = 30;
+  real tau0 = 0.001;
   real slab_scale = 4;   
   real slab_scale2 = square(slab_scale);
   real slab_df = 20;    
@@ -58,7 +58,6 @@ transformed parameters {
   vector[R] beta_mis;
   vector[R] beta_mis2;
   {
-    real tau0 = (m0 / (M - m0)) * (2 / sqrt(1.0 * N));
     vector[R] tau_p = tau0 * tau_p_tilde;
     vector[R] tau_a = tau0 * tau_a_tilde;
     vector[R] tau2 = tau0 * tau_tilde2;
